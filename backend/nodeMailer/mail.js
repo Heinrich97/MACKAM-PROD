@@ -224,7 +224,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             service: 'hotmail',
             auth:{
                 user:"heinrichgeiseb@gmail.com",
-                pass: "Dankie@1997*"
+                pass: "Dankie1997"
             },
         
     });
