@@ -230,7 +230,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
     });
 	
         const info = await transporter.sendMail({
-            from: process.env.EMAIL_ACCOUNT,
+            from: "heinrichgeiseb@gmail.com",
             to: 'heinrich.geiseb@mmltd.com.na',
             subject: 'Order:',
             html
