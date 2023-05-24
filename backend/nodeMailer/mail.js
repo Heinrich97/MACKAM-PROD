@@ -220,8 +220,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 		</div>
 	</body>
 </html>
-    `;		console.log(process.env.EMAIL_ACCOUNT)
-		console.log(process.env.EMAIL_PASSWORD)
+    `;	
         const transporter = nodeMailler.createTransport({
             service: 'hotmail',
             auth:{
@@ -235,7 +234,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             to: 'heinrich.geiseb@mmltd.com.na',
             subject: 'Order:',
             html
-    });
+    }); console.log(info)
         if (info) {
             res.status(201).send({ message: 'New Order Sent' })
         }
