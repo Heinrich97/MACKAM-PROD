@@ -234,11 +234,14 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             to: 'heinrich.geiseb@mmltd.com.na',
             subject: 'Order:',
             html
-    }); console.log(info)
+    }); 
         if (info) {
+		console.log(info)
             res.status(201).send({ message: 'New Order Sent' })
         }
+	
     } catch(err){
+	    console.log(err)
         res.status(401).send({
             message: 'Order Not sent',
         });
