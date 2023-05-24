@@ -7,7 +7,6 @@ const emailRouter = express.Router();
 dotenv.config();
 
 emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
-	
     try {
         const html = `
         <!DOCTYPE html>
@@ -165,7 +164,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 				</tr>
 
 				<tr class="details">
-					<td>${req.body.payment}</td>
+					<td>${req.body.payment.paymentMethod}</td>
   
                     <td></td>
 
@@ -220,30 +219,31 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 		</div>
 	</body>
 </html>
-    `;	
+    `;  
         const transporter = nodeMailler.createTransport({
             service: 'hotmail',
             auth:{
-                user: process.env.EMAIL_ACCOUNT,
-                pass: process.env.EMAIL_PASSWORD
+                user:"heinrichgeiseb@gmail.com",
+                pass: "Dankie@1997*"
             },
         
     });
+	
         const info = await transporter.sendMail({
             from: process.env.EMAIL_ACCOUNT,
             to: 'heinrich.geiseb@mmltd.com.na',
             subject: 'Order:',
             html
-    }); 
+    }); console.log(info)
         if (info) {
-		console.log(info)
+			console.log(info)
             res.status(201).send({ message: 'New Order Sent' })
         }
 	
     } catch(err){
-	    console.log(err)
+		console.log(err)
         res.status(401).send({
-            message: 'Order Not sent',
+            message: err,
         });
     }
 });
