@@ -7,7 +7,7 @@ const emailRouter = express.Router();
 dotenv.config();
 
 emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
-	console.log(req.body)
+	
     try {
         const html = `
         <!DOCTYPE html>
@@ -220,7 +220,8 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 		</div>
 	</body>
 </html>
-    `;
+    `;		console.log(process.env.EMAIL_ACCOUNT)
+		console.log(process.env.EMAIL_PASSWORD)
         const transporter = nodeMailler.createTransport({
             service: 'hotmail',
             auth:{
