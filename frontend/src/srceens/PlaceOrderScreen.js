@@ -3,10 +3,11 @@ import {
   getShipping,
   getPayment,
   cleanCart,
+  getUserInfo,
 } from '../localStorage';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { showLoading, hideLoading, showMessage } from '../utils';
-import { createOrder } from '../api';
+import { createOrder, placeOrder} from '../api';
 
 const convertCartToOrder = () => {
   const orderItems = getCartItems();
@@ -43,12 +44,17 @@ const PlaceOrderScreen = {
         const order = convertCartToOrder();
         showLoading();
         const data = await createOrder(order);
+        const User = getUserInfo()
+        const data1 = await placeOrder(Object.assign(order,User));
         hideLoading();
-        if (data.error) {
-          showMessage(data.error);
+        if (data1.error) {
+          showMessage(data1.error);
         } else {
           cleanCart();
+          document.location.hash = '/profile';
+          /*
           document.location.hash = `/order/${data.order._id}`;
+          */
         }
       });
   },
@@ -96,7 +102,7 @@ const PlaceOrderScreen = {
                   (item) => `
                 <li>
                   <div class="cart-image">
-                    <img src="${item.image}" alt="${item.name}" />
+                  <img src="${`data:image/jpg;base64,${btoa(String.fromCharCode(...new Uint8Array((item.image.data.data))))}`}" alt="${item.name}" alt="${item.name}" />
                   </div>
                   <div class="cart-name">
                     <div>
@@ -104,7 +110,7 @@ const PlaceOrderScreen = {
                     </div>
                     <div> Qty: ${item.qty} </div>
                   </div>
-                  <div class="cart-price"> $${item.price}</div>
+                  <div class="cart-price"> N$${item.price}</div>
                 </li>
                 `
                 )
@@ -117,10 +123,10 @@ const PlaceOrderScreen = {
                 <li>
                   <h2>Order Summary</h2>
                  </li>
-                 <li><div>Items</div><div>$${itemsPrice}</div></li>
-                 <li><div>Shipping</div><div>$${shippingPrice}</div></li>
-                 <li><div>Tax</div><div>$${taxPrice}</div></li>
-                 <li class="total"><div>Order Total</div><div>$${totalPrice}</div></li> 
+                 <li><div>Items</div><div>N$${itemsPrice}</div></li>
+                 <li><div>Shipping</div><div>N$${shippingPrice}</div></li>
+                 <li><div>Tax</div><div>N$${taxPrice}</div></li>
+                 <li class="total"><div>Order Total</div><div>N$${totalPrice}</div></li> 
                  <li>
                  <button id="placeorder-button" class="primary fw">
                  Place Order

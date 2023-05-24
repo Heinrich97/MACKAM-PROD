@@ -16,9 +16,11 @@ const addPaypalSdk = async (totalPrice) => {
     script.type = 'text/javascript';
     script.src = 'https://www.paypalobjects.com/api/checkout.js';
     script.async = true;
+    // eslint-disable-next-line no-use-before-define
     script.onload = () => handlePayment(clientId, totalPrice);
     document.body.appendChild(script);
   } else {
+    // eslint-disable-next-line no-use-before-define
     handlePayment(clientId, totalPrice);
   }
 };
@@ -60,6 +62,7 @@ const handlePayment = (clientId, totalPrice) => {
           });
           hideLoading();
           showMessage('Payment was successfull.', () => {
+            // eslint-disable-next-line no-use-before-define
             rerender(OrderScreen);
           });
         });
@@ -143,7 +146,7 @@ const OrderScreen = {
                   (item) => `
                 <li>
                   <div class="cart-image">
-                    <img src="${item.image}" alt="${item.name}" />
+                  <img src="${`data:image/jpg;base64,${btoa(String.fromCharCode(...new Uint8Array((item.image.data.data))))}`}" alt="${item.name}" alt="${item.name}" />
                   </div>
                   <div class="cart-name">
                     <div>
@@ -151,7 +154,7 @@ const OrderScreen = {
                     </div>
                     <div> Qty: ${item.qty} </div>
                   </div>
-                  <div class="cart-price"> $${item.price}</div>
+                  <div class="cart-price"> N$${item.price}</div>
                 </li>
                 `
                 )

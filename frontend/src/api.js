@@ -45,7 +45,6 @@ export const getProduct = async (id) => {
 };
 export const createProduct = async (formdata) => {
   try {
-    console.log([...formdata])
     const { token } = getUserInfo();
     const response = await axios({
       url: `${apiUrl}/api/products`,
@@ -59,6 +58,7 @@ export const createProduct = async (formdata) => {
     // if (response.statusText !== "Created") {
     //   throw new Error(response.data.message);
     // }
+    console.log(response.data)
     return response.data;
   } catch (err) {
     return { error: err.response.data.message || err.message };
@@ -107,6 +107,7 @@ export const deleteProduct = async (productId) => {
 };
 
 export const updateProduct = async (product) => {
+  console.log(product)
   try {
     const { token } = getUserInfo();
     const response = await axios({
@@ -312,6 +313,26 @@ export const getMyOrders = async () => {
     return response.data;
   } catch (err) {
     return { error: err.response ? err.response.data.message : err.message };
+  }
+};
+export const placeOrder = async(order) =>{
+  try {
+      const {token} = getUserInfo();
+      const response = await axios({
+          url: `${apiUrl}/api/placeorder/placeorder`,
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+          },
+          data: order,
+      });
+      if (response.statusText !== 'Created') {
+          throw new Error(response.data.message);
+      }
+          return response.data;
+      }catch (err) {
+          return { error: err.response ? err.response.data.message : err.message};    
   }
 };
 export const getPaypalClientId = async () => {

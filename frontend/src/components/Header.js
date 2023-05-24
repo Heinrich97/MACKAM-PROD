@@ -7,10 +7,10 @@ const Header = {
     const { value } = parseRequestUrl();
     return ` 
   <div class="brand">
-    <button id="aside-open-button">
+    <button id="aside-open-button" class="aside-open-button">
       &#9776;
     </button>
-    <a href="/#/">jsamazona</a>
+    <a href="/#/">MACKAM</a>
   </div>
   <div class="search">
   <form class="search-form"  id="search-form">
@@ -18,7 +18,7 @@ const Header = {
     <button type="submit"><i class="fa fa-search"></i></button>
   </form>        
   </div>
-  <div>
+  <div class="links">
   ${
     name
       ? `<a href="/#/profile">${name}</a>`

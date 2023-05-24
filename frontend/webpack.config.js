@@ -10,10 +10,6 @@ module.exports = {
       template: "index.html",
     }),
   ],
-  output: {
-   filename: 'main.js',
-   publicPath: '/'
-  },
   module: {
     rules: [
       {

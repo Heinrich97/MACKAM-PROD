@@ -14,6 +14,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-nested-ternary': 0,
     'import/prefer-default-export': 0,
-    'no-unused-var':0
+    'no-unused-var':0,
+    'no-use-before-define':0,
   },
 };

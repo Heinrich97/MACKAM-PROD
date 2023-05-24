@@ -9,34 +9,36 @@ const HomeScreen = {
     if (products.error) {
       return `<div class="error">${products.error}</div>`;
     }
+
     return `
     <ul class="products">
-    ${products.map(
-    (product) =>`
-    <li>
+      ${products
+        .map(
+          (product) => `
+      <li>
         <div class="product">
-            <a href="/#/product/${product._id}">
-            <img src="${`data:image/jpg;base64,${btoa(String.fromCharCode(...new Uint8Array((product.image.data.data))))}`}" alt="${product.name}"/>
-            </a>
+          <a href="/#/product/${product._id}">
+          <img src="${`data:image/jpg;base64,${btoa(String.fromCharCode(...new Uint8Array((product.image.data.data))))}`}" alt="${product.name}" alt="${product.name}" />
+          </a>
         <div class="product-name">
-            <a href="/#/product/1">
-                ${product.name}
-            </a>
+          <a href="/#/product/1">
+            ${product.name}
+          </a>
         </div>
         <div class="product-rating">
-            ${Rating.render({
-                value: product.rating,
-                text: `${product.numberReviews} reviews`,
-            })}
+          ${Rating.render({
+            value: product.rating,
+            text: `${product.numReviews} reviews`,
+          })}
         </div>
-            <div class="product-brand">
-            ${product.brand}
-            </div>
+        <div class="product-brand">
+          ${product.brand}
+        </div>
         <div class="product-price">
-            N$ ${product.price}
-        </div>  
+          N$${product.price}
         </div>
-    </li>
+        </div>
+      </li>
       `
         )
         .join('\n')}

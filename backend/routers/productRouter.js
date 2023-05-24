@@ -1,21 +1,10 @@
 import express from 'express';
-import multer from 'multer';
 import fs from 'fs'
 import expressAsyncHandler from 'express-async-handler';
 import { isAuth, isAdmin } from '../utils';
 import Product from '../models/productModel';
 
-
-
 const productRouter = express.Router();
-const storage = multer.diskStorage({
-  destination: (req,file,cb) =>{
-    cb(null,'./Backend/uploads/')
-  },
-  filename: (req,file,cb) => {
-    cb(null,file.originalname)
-  },
-});
 productRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
@@ -28,11 +17,7 @@ productRouter.get(
         }
       : {};
     const products = await Product.find({ ...searchKeyword });
-    if (products) {
-      res.send(products);
-    } else {
-      res.status(500).send({ message: 'Error in creating product' });
-    }
+    res.send(products);
   })
 );
 productRouter.get(
@@ -42,30 +27,22 @@ productRouter.get(
     res.send(product);
   })
 );
-const upload = multer({storage});
+
 productRouter.post(
   '/',
-  upload.single('testImage'),
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
-      name: req.body.name,
+      name: 'sample product',
+      description: 'sample desc',
+      category: 'sample category',
+      brand: 'sample brand',
       image: {
-          data: fs.readFileSync(`./backend/uploads/${req.file.filename}`),
-          contenType:"image/png", 
-      },
-      category: req.body.category,
-      price: req.body.price,
-      brand: req.body.brand,
-      rating: 0,
-      numberReviews: 0,
-      description: req.body.description,
-      countInStock: 0,
-      originalname: req.body.originalname,
+        data: fs.readFileSync(`./backend/uploads/sample-image.png`),
+        contenType:"image/png"}
     });
     const createdProduct = await product.save();
-    
     if (createdProduct) {
       res
         .status(201)
@@ -80,12 +57,16 @@ productRouter.put(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    console.log(req.body)
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
       product.name = req.body.name;
       product.price = req.body.price;
-      product.image = req.body.image;
+      // eslint-disable-next-line no-unused-expressions
+      product.image = {
+        data: fs.readFileSync(`./backend/uploads/${req.body.image}`),
+        contenType:"image/png"};
       product.brand = req.body.brand;
       product.category = req.body.category;
       product.countInStock = req.body.countInStock;
@@ -106,10 +87,10 @@ productRouter.delete(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    console.log(req.params.id)
-    const response = await Product.findByIdAndDelete(req.params.id)
-    if (response) {
-      res.send({ message: 'Product Deleted'});
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+      res.send({ message: 'Product Deleted', product: deletedProduct });
     } else {
       res.status(404).send({ message: 'Product Not Found' });
     }
@@ -130,8 +111,8 @@ productRouter.post(
       };
       product.reviews.push(review);
       product.rating =
-      product.reviews.reduce((a, c) => c.rating + a, 0) /
-      product.reviews.length;
+        product.reviews.reduce((a, c) => c.rating + a, 0) /
+        product.reviews.length;
       product.numReviews = product.reviews.length;
       const updatedProduct = await product.save();
       res.status(201).send({

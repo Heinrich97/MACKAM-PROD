@@ -7,6 +7,7 @@ const OrderListScreen = {
     const deleteButtons = document.getElementsByClassName('delete-button');
     Array.from(deleteButtons).forEach((deleteButton) => {
       deleteButton.addEventListener('click', async () => {
+        // eslint-disable-next-line no-restricted-globals, no-alert
         if (confirm('Are you sure to delete this order?')) {
           showLoading();
           const data = await deleteOrder(deleteButton.id);

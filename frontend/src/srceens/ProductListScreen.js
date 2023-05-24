@@ -1,5 +1,5 @@
 import DashboardMenu from "../components/DashboardMenu";
-import { getProducts, deleteProduct } from "../api";
+import { getProducts, createProduct, deleteProduct } from "../api";
 import { showLoading, hideLoading, rerender, showMessage } from "../utils";
 
 const ProductListScreen = {
@@ -7,7 +7,9 @@ const ProductListScreen = {
     document
       .getElementById("create-product-button")
       .addEventListener("click", async () => {
-        document.location.hash = '/create';
+        const data = await createProduct();
+        console.log(data)
+        document.location.hash = `/product/${data.product._id}/edit`;
       });
     const editButtons = document.getElementsByClassName("edit-button");
     Array.from(editButtons).forEach((editButton) => {

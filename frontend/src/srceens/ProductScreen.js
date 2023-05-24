@@ -67,7 +67,7 @@ const ProductScreen = {
             })}
             </li>
             <li>
-              Price: <strong>$${product.price}</strong>
+              Price: <strong>N$${product.price}</strong>
             </li>
             <li>
               Description:

@@ -8,6 +8,7 @@ import userRouter from './routers/userRouter';
 import orderRouter from './routers/orderRouter';
 import productRouter from './routers/productRouter';
 import uploadRouter from './routers/uploadRouter';
+import emailRouter from './nodeMailer/mail';
 
 mongoose
   .connect(process.env.MONGODB_URL, {
@@ -22,11 +23,12 @@ mongoose
   });
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use('/api/uploads', uploadRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/placeorder', emailRouter);
 app.get('/api/paypal/clientId', (req, res) => {
   res.send({ clientId: config.PAYPAL_CLIENT_ID });
 });

@@ -14,11 +14,13 @@ const ProductEditScreen = {
       .addEventListener('submit', async (e) => {
         e.preventDefault();
         showLoading();
+        const imageName =document.getElementById('image-file').value
+        console.log(imageName.split("\\").pop())
         const data = await updateProduct({
           _id: request.id,
           name: document.getElementById('name').value,
           price: document.getElementById('price').value,
-          image: document.getElementById('image').value,
+          image: imageName.split("\\").pop(),
           brand: document.getElementById('brand').value,
           category: document.getElementById('category').value,
           countInStock: document.getElementById('countInStock').value,
@@ -51,7 +53,6 @@ const ProductEditScreen = {
   render: async () => {
     const request = parseRequestUrl();
     const product = await getProduct(request.id);
-
     return `
     <div class="content">
       <div>
@@ -77,7 +78,10 @@ const ProductEditScreen = {
             </li>
             <li>
               <label for="image">Image (680 x 830)</label>
-              <img src="${`data:image/jpg;base64,${btoa(String.fromCharCode(...new Uint8Array((product.image.data.data))))}`}" alt="${product.name}"/>
+              <input type="text" name="image" value="${
+                product.image
+              }" id="image" hidden/>
+              <img src="${`data:image/jpg;base64,${btoa(String.fromCharCode(...new Uint8Array((product.image.data.data))))}`}" alt="${product.name}" alt="${product.name}" />
               <input type="file" name="image-file" id="image-file" />
             </li>
             <li>

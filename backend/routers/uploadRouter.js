@@ -3,11 +3,11 @@ import multer from 'multer';
 import { isAuth, isAdmin } from '../utils';
 
 const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'uploads/');
+  destination: (req,file,cb) =>{
+    cb(null,'./backend/uploads/')
   },
-  filename(req, file, cb) {
-    cb(null, `${Date.now()}.jpg`);
+  filename: (req,file,cb) => {
+    cb(null,file.originalname)
   },
 });
 

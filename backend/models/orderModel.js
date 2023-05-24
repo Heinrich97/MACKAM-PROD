@@ -5,7 +5,10 @@ const orderSchema = new mongoose.Schema(
     orderItems: [
       {
         name: { type: String, required: true },
-        image: { type: String, required: true },
+        image: {
+          data: Buffer,
+          contenType:String, 
+        },
         price: { type: Number, required: true },
         qty: { type: Number, required: true },
         product: {
