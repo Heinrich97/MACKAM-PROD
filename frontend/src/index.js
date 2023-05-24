@@ -21,16 +21,17 @@ import Aside from './components/Aside';
 import "../style.css"
 
 // import all images from "images" folder
-const importAll = (require) => require.keys().reduce((acc, next) => {
+/*const importAll = (require) => require.keys().reduce((acc, next) => {
   // eslint-disable-next-line import/no-dynamic-require
     acc[next.replace('./', '')] = require(next);
     return acc;
   }, {});
-  
+  */
   // eslint-disable-next-line no-unused-vars
-  const images = importAll(
+  /*const images = importAll(
     require.context('/images', false, /\.(gif|png|jpg|jpe?g)$/),
   );
+  */
 
 const routes = {
   '/': HomeScreen,
