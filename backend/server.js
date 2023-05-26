@@ -43,5 +43,5 @@ app.use((err, req, res, next) => {
   res.status(status).send({ message: err.message });
 });
 app.listen(config.PORT, () => {
-  console.log('serve at http://localhost:5000');
+  console.log(`serve at http://localhost:${config.PORT}`);
 });
