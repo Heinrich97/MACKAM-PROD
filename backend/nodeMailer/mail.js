@@ -228,15 +228,14 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             },
         
     });
-	
+	console.log(transporter)
         const info = await transporter.sendMail({
             from: "heinrichgeiseb@gmail.com",
             to: 'heinrich.geiseb@mmltd.com.na',
             subject: 'Order:',
             html
-    }); console.log(info)
+    });
         if (info) {
-			console.log(info)
             res.status(201).send({ message: 'New Order Sent' })
         }
 	
