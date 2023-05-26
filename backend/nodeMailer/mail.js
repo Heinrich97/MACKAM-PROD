@@ -221,7 +221,8 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 </html>
     `;  
         const transporter = nodeMailler.createTransport({
-            service: 'hotmail',
+            service: 'smtp-mail.outlook.com',
+	    port: 587,
             auth:{
                 user:"heinrichgeiseb@gmail.com",
                 pass: "Dankie1997"
