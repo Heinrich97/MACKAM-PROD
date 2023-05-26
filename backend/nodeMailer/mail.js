@@ -240,7 +240,6 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
         }
 	
     } catch(err){
-		console.log(err)
         res.status(401).send({
             message: err,
         });
