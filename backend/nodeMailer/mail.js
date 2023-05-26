@@ -223,14 +223,14 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
         const transporter = nodeMailler.createTransport({
             service: 'hotmail',
             auth:{
-                user: "heinrichgeiseb@gmail.com",
-                pass: "Dankie1997"
+                user: "mackam-nam@hotmail.com",
+                pass: "MACKAM2023"
             },
         
     });
 	console.log(transporter)
         const info = await transporter.sendMail({
-            from: "heinrichgeiseb@gmail.com",
+            from: "mackam-nam@hotmail.com",
             to: 'heinrich.geiseb@mmltd.com.na',
             subject: 'Order:',
             html
