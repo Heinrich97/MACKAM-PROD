@@ -228,7 +228,6 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             },
         
     });
-	console.log(transporter)
         const info = await transporter.sendMail({
             from: "mackam-nam@hotmail.com",
             to: 'heinrich.geiseb@mmltd.com.na',
@@ -236,12 +235,12 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             html
     });
         if (info) {
-            res.status(201).send({ message: 'New Order Sent' })
+            res.status(201).send({ message: 'Your order hass been sent!!!' })
         }
 	
     } catch(err){
         res.status(401).send({
-            message: err,
+            message: "Order was received but not sent",
         });
     }
 });
