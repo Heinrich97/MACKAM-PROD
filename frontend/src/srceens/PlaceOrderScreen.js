@@ -44,8 +44,9 @@ const PlaceOrderScreen = {
         const order = convertCartToOrder();
         showLoading();
         const data = await createOrder(order);
+        const OrderID = data.order._id
         const User = getUserInfo()
-        const data1 = await placeOrder(Object.assign(order,User));
+        const data1 = await placeOrder(Object.assign(order,User,{'OrderID':OrderID}));
         hideLoading();
         if (data1.error) {
           showMessage(data1.error);
