@@ -1,26 +1,32 @@
+import { getProducts } from "../api";
+
 const Aside = {
   render: async () => {
+    const products = await getProducts("");
+    console.log(products)
     return `
    <div class="aside-header">
     <div>SHOP BY CATEGORY</div>
     <button class="aside-close-button" id="aside-close-button">x</button>
   </div>
-  <div class="aside-body">
-    <ul class="categories">
-      <li>
-        <a href="/#/?q=shirt"
-          >Shirts
-          <span><i class="fa fa-chevron-right"></i></span>
-        </a>
-      </li>
-      <li>
-        <a href="/#/?q=pant"
-          >Pants
-          <span><i class="fa fa-chevron-right"></i></span>
-        </a>
-      </li> 
-    </ul>
-  </div>`;
+  ${
+    products
+    .map(
+      (product) => `  
+      <div class="aside-body">
+      <ul class="categories">
+        <li>
+          <a href="/#/?q=${product.category}"
+            >${product.category
+            }
+            <span><i class="fa fa-chevron-right"></i></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  `
+    )
+    .join('\n')}`;
   },
   after_render: async () => {
     document.getElementById('aside-container').classList.remove('open');
