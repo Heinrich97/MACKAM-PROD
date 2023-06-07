@@ -122,7 +122,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 								</td>
 
 								<td>
-									Invoice #: 123<br />
+									Order #: ${req.body.OrderID}<br />
 									Created: ${new Date().toUTCString().slice(5, 16)} <br />
 								</td>
 							</tr>
@@ -147,6 +147,7 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
 								<td>
 									${req.body.name}<br />
 									${req.body.email}
+									${req.body.number}
 								</td>
 							</tr>
 						</table>
@@ -228,19 +229,20 @@ emailRouter.post("/placeorder", isAuth ,async (req, res)=>{
             },
         
     });
+	console.log(req.body)
         const info = await transporter.sendMail({
             from: process.env.EMAIL_ACCOUNT,
             to: 'heinrich.geiseb@mmltd.com.na',
-            subject: 'Order:',
+            subject: `Order: ${req.body.OrderID}`,
             html
     });
         if (info) {
-            res.status(201).send({ message: 'Your order hass been sent!!!' })
+            res.status(201).send({ message: 'New Order Sent' })
         }
 	
     } catch(err){
         res.status(401).send({
-            message: "Order was received but not sent",
+            message: err,
         });
     }
 });
