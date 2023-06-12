@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     index: true,
     unique: true,
   },
+  phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
   isAdmin: { type: Boolean, required: true, default: false },
 });
