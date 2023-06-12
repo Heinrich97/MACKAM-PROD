@@ -20,7 +20,7 @@ const ProductEditScreen = {
           _id: request.id,
           name: document.getElementById('name').value,
           price: document.getElementById('price').value,
-          image: imageName.split("\\").pop(),
+          image: imageName.split("\\").pop().value,
           brand: document.getElementById('brand').value,
           category: document.getElementById('category').value,
           countInStock: document.getElementById('countInStock').value,
