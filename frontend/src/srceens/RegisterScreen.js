@@ -13,6 +13,7 @@ const RegisterScreen = {
           name: document.getElementById('name').value,
           email: document.getElementById('email').value,
           password: document.getElementById('password').value,
+          phoneNumber: document.getElementById('phoneNumber').value,
         });
         hideLoading();
         if (data.error) {
@@ -41,6 +42,10 @@ const RegisterScreen = {
           <li>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" />
+          </li>
+           <li>
+            <label for="phoneNumber">Phone Number</label>
+            <input type="name" name="phoneNumber" id="phoneNumber" />
           </li>
           <li>
             <label for="password">Password</label>
