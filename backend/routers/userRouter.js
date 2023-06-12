@@ -51,6 +51,7 @@ userRouter.post(
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
+      phoneNumber: req.body.phoneNumber,
     });
     const createdUser = await user.save();
     if (!createdUser) {
@@ -63,6 +64,7 @@ userRouter.post(
         name: createdUser.name,
         email: createdUser.email,
         isAdmin: createdUser.isAdmin,
+        phoneNumber: createdUser.phoneNumber,
         token: generateToken(createdUser),
       });
     }
@@ -82,11 +84,13 @@ userRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.password = req.body.password || user.password;
+      user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
       const updatedUser = await user.save();
       res.send({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        phoneNumber: updatedUser.phoneNumber,
         isAdmin: updatedUser.isAdmin,
         token: generateToken(updatedUser),
       });
