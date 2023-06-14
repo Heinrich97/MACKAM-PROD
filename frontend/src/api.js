@@ -183,6 +183,7 @@ export const register = async ({ name, email, password }) => {
         name,
         email,
         password,
+        phoneNumber,
       },
     });
     // if (response.statusText !== 'OK') {
