@@ -52,7 +52,7 @@ const ProfileScreen = {
             <input type="email" name="email" id="email" value="${email}" />
           </li>
             <li>
-            <label for="email">Phone Number</label>
+            <label for="phoneNumber">Phone Number</label>
             <input type="name" name="phoneNumber" id="phoneNumber" value="${phoneNumber}" />
           </li>
           <li>
