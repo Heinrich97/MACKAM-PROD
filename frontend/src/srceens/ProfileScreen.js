@@ -17,6 +17,7 @@ const ProfileScreen = {
           name: document.getElementById('name').value,
           email: document.getElementById('email').value,
           password: document.getElementById('password').value,
+          phoneNumber: document.getElementById('phoneNumber').value,
         });
         hideLoading();
         if (data.error) {
@@ -49,6 +50,10 @@ const ProfileScreen = {
           <li>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" value="${email}" />
+          </li>
+            <li>
+            <label for="email">Phone Number</label>
+            <input type="name" name="phoneNumber" id="phoneNumber" value="${phoneNumber}" />
           </li>
           <li>
             <label for="password">Password</label>
